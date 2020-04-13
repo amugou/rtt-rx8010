@@ -304,20 +304,6 @@ static rt_err_t rt_rx8010_control(rt_device_t dev, int cmd, void *args)
     return ret;
 }
 
-/*
- *  @brief  Read temperature from rx8010
- *  @return Celsius temperature,-55~+125C,0.1C     
- */
-float rx8010_get_temperature(void)
-{
- 	rt_uint8_t value = 0;
-	float temp = 0.0f;
-	
-	rx8010_read_reg(&rx8010_dev, REG_TEMP, (rt_uint8_t*)&value, 1);
-	temp = (value*2-187.19)/3.218;
-	
-	return temp;
-}
 
 /*
  *  @brief  Init rx8010 and register into RT-Thread device
@@ -412,25 +398,7 @@ int rt_hw_rx8010_init(void)
 	
     return RT_EOK;
 }
+
 INIT_DEVICE_EXPORT(rt_hw_rx8010_init);
-
-
-#ifdef RT_USING_FINSH
-#include <finsh.h>
-
-void list_rx89_temp(void)
-{
-	float temp = 0.0f;
-	
-	temp = rx8010_get_temperature();
-	
-	rt_kprintf("rx8010 temperature: [%d.%dC] \n", (int)temp, (int)(temp * 10) % 10);
-}
-FINSH_FUNCTION_EXPORT(list_rx89_temp, list rx8010 temperature.)
-#endif /* RT_USING_FINSH */
-
-#if defined(RT_USING_FINSH) && defined(FINSH_USING_MSH)
-MSH_CMD_EXPORT(list_rx89_temp, list rx8010 temperature.);
-#endif /* RT_USING_FINSH & FINSH_USING_MSH */
 
 #endif /* PKG_USING_RX8010 */
