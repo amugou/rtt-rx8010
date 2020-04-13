@@ -185,7 +185,7 @@ rx8010 temperature: [27.5C]
 
 ## 5 联系方式
 
-- 维护：[Acuity](https://github.com/amugou)
+- 维护：[amugou](https://github.com/amugou)
 - 主页：<https://github.com/amugou/rtt-rx8010>      
 
 
